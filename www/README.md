@@ -6,7 +6,7 @@ The Rails application `demo_study` is an example of study which will be run insi
  
 The following figure illustrates the interaction between the two web applications.
 
-![alt tag](https://github.com/Telecommunication-Telemedia-Assessment/CrowdWatcher/www/framework.png)
+![alt tag](https://raw.githubusercontent.com/Telecommunication-Telemedia-Assessment/CrowdWatcher/branch/www/framework.png)
 
 The application `eyetracker` takes care of all the different steps EXCEPT the main task. The main task being carried on by the application `demo_study`. 
 
