@@ -1,0 +1,123 @@
+<%= form_for(@post_session_assessment) do |f| %>
+  <% if @post_session_assessment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post_session_assessment.errors.count, "error") %> prohibited this assessment from being saved:</h2>
+
+      <ul>
+        <% @post_session_assessment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :final_emotion %>
+  <%= f.hidden_field :comfort %>
+  <%= f.hidden_field :feedback %>
+
+  <br />&nbsp;<br />
+
+  <div class="row">
+    <p>The test is almost finished. We would like to thank you and ask you the following final questions (you will receive the token on next page) </p>
+  </div>
+
+  <div class="row">
+    <p>Did you feel comfortable with the test? </p>
+    <canvas id="ComfortCanvas" width="200" height="100" style="margin-top:-80px;"></canvas>
+
+  </div>
+
+  <div class="row">
+    <p>Did you manage to forget that your face was being recorded?</p>
+    <canvas id="ComfortCanvas2" width="200" height="100" style="margin-top:-80px;"></canvas>
+  </div>
+
+  <div class="row">
+    <p>Do you have any other comment about the task?</p>
+  </div>
+  <div class="row">
+    <%= f.text_area(:feedback, rows: 8, class: "span10", placeholder: "feedback...") %>
+  </div>  
+
+
+  <div class="row">
+    <%= submit_tag  "Next", class: "button right", :id => "next"  %>
+  </div>
+
+
+
+  <script src="../js/Character.js"></script>
+  <script src="../js/FeelingAssessment.js"></script>
+
+  <script type="text/javascript">
+
+  var nextButton = document.getElementById("next");
+  nextButton.disabled = true;
+
+  var allScales = new Array();
+
+
+  var c=document.getElementById("ComfortCanvas2");
+  var ctx=c.getContext("2d");
+
+  c.height = 200;
+  c.width = 600;
+
+  var comfort2 = new Feeling("../images/void.jpeg", "../images/void.jpeg", "Disagree", "Agree", ctx, 0.8);
+  comfort2.setPos((c.width-600)/2,100);
+  allScales.push(comfort2);
+
+
+  var comfC=document.getElementById("ComfortCanvas");
+  var comfCtx=comfC.getContext("2d");
+
+  comfC.height = 200;
+  comfC.width = 600;
+
+  var valence = new Feeling("../images/void.jpeg", "../images/void.jpeg", "Disagree", "Agree", comfCtx, 0.8);
+  valence.setPos((comfC.width-600)/2,100);
+  allScales.push(valence);
+
+
+  // ---------------------------------------------------------------------------------
+  
+  function recordClick(e) {
+        var rect = c.getBoundingClientRect();
+        clicX = e.pageX -rect.left- document.body.scrollLeft;
+        clicY = e.pageY -rect.top - document.body.scrollTop;
+        if(comfort2.isClicked(clicX, clicY)) {
+//                nextButton.style.visibility = "visible";
+                document.getElementById("post_session_assessment_final_emotion").value = comfort2.value;
+        }
+
+	rect = comfC.getBoundingClientRect();
+	clicX = e.pageX -rect.left- document.body.scrollLeft;
+        clicY = e.pageY -rect.top - document.body.scrollTop;
+      
+	if(valence.isClicked(clicX, clicY)) {
+		document.getElementById("post_session_assessment_comfort").value = valence.value;
+	}
+
+	var scaleRemaining = false;
+	for(var i = 0 ; i < allScales.length ; ++i) {
+		if(allScales[i].value == -1)
+			scaleRemaining = true;
+	}
+	if(!scaleRemaining) {
+		nextButton.disabled = false;
+		document.getElementById("post_session_assessment_comfort").value = valence.value;
+
+	}
+	
+}
+
+function onPageLoad() {
+        document.getElementsByTagName("html")[0].onclick = recordClick;
+	document.getElementsByTagName("html")[0].ontouchstart = recordClick;
+}
+
+window.onload = onPageLoad;
+
+</script>
+
+<% end %>

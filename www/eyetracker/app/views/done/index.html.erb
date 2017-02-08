@@ -1,0 +1,26 @@
+ <%= stylesheet_link_tag "application" %>
+ <%= javascript_include_tag "application" %>
+
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Done!</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <div class="panel">
+      <div class="row">
+        <div class="large-12 medium-12 columns">
+         <p>You have completed all the tests. <b>Thank you for completing the test!</b> </p>
+
+         <p style="visibility:<%= session[:mw_id].nil? ? 'hidden' : 'visible' %>">
+           Your proof token is: <br>
+           <i><%=@token%></i>
+         </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

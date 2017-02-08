@@ -1,0 +1,142 @@
+#!/usr/bin/env python2
+#
+# createmap
+#   Generate a saliency map from multiple csv parts
+#
+# by Anton Schubert <anton.schubert@mailbox.org>
+
+import sys
+import argparse
+import cv2
+import numpy as np
+from processing import Pool
+from os import path
+from scipy import ndimage
+from eyetrackerlib import *
+
+parser = argparse.ArgumentParser(description='Generate saliency map from fixation prediction data')
+parser.add_argument('-o', dest='out', required=True, help='file for Saliency Map output')
+parser.add_argument('-s', dest='xmlDir', required=True, help='source dir for xml files')
+parser.add_argument('-d', help="display both maps during processing", dest="display", action="store_true")
+parser.add_argument('files', nargs='+', help='comma seperated CSV\'s with atleast x, y, CI_x and CI_y columns')
+args = parser.parse_args()
+
+def createFrame(index):
+    sMap = np.zeros((baseHeight, baseWidth))
+
+    # Iterate through users
+    for user in range(len(data)):
+        userdata = data[user]
+        uservideo = videos[user]
+        if (len(userdata) <= index):
+            continue
+
+        row = userdata[index]
+
+        # We assume fullscreen operation
+        screenAspect = float(uservideo.width) / uservideo.height
+
+        # screen is wider than video
+        videoWidth = videoHeight = 0
+        if (screenAspect > videoAspect):
+            videoHeight = uservideo.height
+            videoWidth = videoHeight * videoAspect
+
+        # screen is thinner than video
+        else:
+            videoWidth = uservideo.width
+            videoHeight = videoWidth / videoAspect
+
+        # center video in frame
+        posX = row.x - (uservideo.width - videoWidth) / 2
+        posY = row.y - (uservideo.height - videoHeight) / 2
+
+        # scale frame to constant size
+        factor = float(baseWidth) / videoWidth
+        posX *= factor
+        posY *= factor
+
+        if (posX < 0 or posX >= baseWidth or
+            posY < 0 or posY >= baseHeight):
+            continue
+
+        part = np.zeros((baseHeight, baseWidth))
+        part[posY, posX] = 1000
+        ciX = row.CI_x / 6.0
+        ciY = row.CI_y / 6.0
+
+        # Gaussian 1 (dynamic, error based)
+        CI = max(ciX, ciY)
+        part = ndimage.gaussian_filter(part, CI) * CI
+
+        # Add part to whole map
+        A = CI * 3
+        xs, xe = max(0, posX - A), min(baseWidth, posX + A)
+        ys, ye = max(0, posY - A), min(baseHeight, posY + A)
+        sMap[ys:ye, xs:xe] += part[ys:ye, xs:xe]
+
+    # Gaussian 2 (constant, viewdistance based)
+    distance = 1
+    dpi = 72
+    inchesPerMeter = 39.370
+
+    factor = np.tan(1.0 / 180 * np.pi) * distance * inchesPerMeter * dpi
+    sMap = ndimage.gaussian_filter(sMap, factor) * factor
+
+    frame = sMap.astype('uint8')
+    return frame
+
+
+# Variables
+baseWidth = 720
+baseHeight = 576
+videoAspect = float(baseWidth) / baseHeight
+
+# Parse CSVs
+data = []
+videos = []
+for i in range(len(args.files)):
+    csv = args.files[i]
+    uid = path.splitext(path.basename(csv))[0]
+    xml = path.join(args.xmlDir, uid + ".xml")
+    videoname = path.split(path.dirname(csv))[1] + ".mp4"
+
+    uservideos, _ = parseXML(xml)
+    uservideo = None
+    for video in uservideos:
+        if (video.title == videoname):
+            uservideo = video
+            break
+
+    if uservideo is None:
+        print("videoEnd not found in XML for uid %s" % uid)
+        sys.exit(1)
+
+    data.append(parseCSV(csv, makeFloat=True))
+    videos.append(uservideo)
+
+length = max(len(userdata) for userdata in data)
+print "max length:", length, [len(userdata) for userdata in data]
+
+# Fill for color channels
+uvFrame = np.ones((baseHeight / 2.0, baseWidth), dtype='uint8') * 127
+
+p = Pool(4)
+result = p.mapAsync(createFrame, range(length))
+
+f = open(args.out, 'w')
+for i in range(0, length, 10):
+    result = p.mapAsync(createFrame, range(i, min(i+12, length)))
+    frames = result.get()
+
+    for i in range(len(frames)):
+        frame = frames[i]
+        f.write(frame.tobytes())
+        f.write(uvFrame.tobytes())
+
+        if (args.display):
+            cv2.imshow("foo", frame)
+            if cv2.waitKey(50) & 0xFF == ord("q"):
+                break
+
+f.close()

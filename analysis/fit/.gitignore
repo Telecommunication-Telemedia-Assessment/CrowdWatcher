@@ -1,0 +1,27 @@
+*~
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Compiled Object files
+*.o
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+fit

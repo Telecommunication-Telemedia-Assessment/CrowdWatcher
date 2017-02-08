@@ -1,0 +1,119 @@
+.button-group {
+  position: relative;
+  display: inline-block;
+  margin: 1rem 0; }
+  .button-group:before {
+    content: attr(data-grouptype);
+    z-index: 99999;
+    color: #999;
+    display: block;
+    font-size: 1rem;
+    padding: 0.25em;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    left: 42.5%;
+    top: 0.35rem; }
+  .button-group button + button {
+    margin-left: 5px; }
+
+img.selected {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 3px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+img.selected {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 3px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+button.selected {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid #DDDDDD;
+}
+
+button.selected {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+
+label.missing_info {
+  color: #ff0000;
+}
+
+#gameCanvas {
+  border: 1px solid #000000;
+}
+
+.hidden {
+  display: none;
+}
+
+.captureVideo {
+  border: 1px solid #000000
+}
+
+.faceMarker {
+  position: relative;
+  z-index: 10;
+  margin-top: -470px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  width: 340px;
+  height: 440px;
+  border:1px solid #000000;
+  -moz-border-radius: 50% / 50%;
+  -webkit-border-radius: 50% / 50%;
+  border-radius: 50% / 50%;
+}
+
+#trackingStatusHolder {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#headtrackerMessage {
+  font-size: 1.5rem !important;
+  padding: 8px 14px;
+}
+
+/* Upload */
+#waitEncodingCaption, #uploadCaption {
+  margin-left: 100px;
+  width: 800px;
+  height: 20px;
+  text-align: center;
+}
+
+#skipPreview{
+  width: 200px;
+  height: 50px;
+}
+
+#progressHolder{
+  margin-top: 50px;
+}
+
+#progressBar{
+  display: block;
+  width: 60%;
+  height: 30px;
+  margin: 0 auto;
+}

@@ -1,0 +1,9 @@
+[submodule "crowdsourcing-data"]
+	path = crowdsourcing-data
+	url = git@github.com:iSchluff/crowdsourcing-data.git
+[submodule "Fit"]
+	path = Fit
+	url = git@github.com:iSchluff/fit.git
+[submodule "clmframework"]
+	path = clmframework
+	url = git@github.com:iSchluff/clmframework.git

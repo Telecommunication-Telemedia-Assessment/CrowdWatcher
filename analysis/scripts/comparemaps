@@ -1,0 +1,78 @@
+#!/usr/bin/env python2
+#
+# comparemaps
+#   Compare 2 Saliency Maps using KL-divergence
+#   Expects both maps as positional arguments in i420 YUV format
+#
+# by Anton Schubert <anton.schubert@mailbox.org>
+
+import argparse
+import os
+import cv2
+import numpy as np
+
+class yuvVideo:
+    def __init__(self, path, width, height, fps):
+        self.fd = open(path, 'rb')
+        self.width = width
+        self.height = height
+        self.fps = fps
+        self.planeSize = self.width * self.height
+        self.frameSize = self.planeSize * 12 / 8 # 12 bits per pixel
+        self.fileSize = os.stat(path).st_size
+        self.numFrames = self.fileSize / self.frameSize
+
+    # read y-component from i420 frame
+    def readFrame(self, frame):
+        self.fd.seek(frame * self.frameSize)
+        y = self.fd.read(self.planeSize)
+        v = self.fd.read(self.planeSize / 4)
+        u = self.fd.read(self.planeSize / 4)
+        return np.fromstring(y, np.uint8).reshape((self.height, self.width))
+
+    def close(self):
+        self.fd.close()
+
+    def __str__(self):
+        return "(Video size: %d, frames: %d)" % (self.fileSize, self.numFrames)
+
+parser = argparse.ArgumentParser(description="Compare saliency maps using kullback leibler divergence")
+parser.add_argument('file1', help="yuv video")
+parser.add_argument('file2', help="yuv video")
+parser.add_argument('-d', help="display both maps during processing", dest="display", action="store_true")
+args = parser.parse_args()
+
+video1 = yuvVideo(args.file1, 720, 576, 25)
+video2 = yuvVideo(args.file2, 720, 576, 25)
+print(str(video1), str(video2))
+
+
+# calculates leibler divergence of Q from P
+e = 10 ** -6
+def kb_div(Q, P):
+    return np.sum(P * np.log((P + e) / (Q + e)))
+
+values = []
+
+for n in range(min(video1.numFrames, video2.numFrames)):
+#for n in range(5):
+    frame1 = video1.readFrame(n)
+    frame2 = video2.readFrame(n)
+
+    if args.display:
+        cv2.imshow('Frame 1', frame1)
+        cv2.imshow('Frame 2', frame2)
+
+    H = frame1 / float(np.sum(frame1))
+    P = frame2 / float(np.sum(frame2))
+    values.append(kb_div(H, P) + kb_div(P, H))
+
+    if args.display and cv2.waitKey(1000 / video1.fps) & 0xFF == ord('q'):
+        break
+
+print "Divergence:", np.sum(values) / len(values)
+
+# Release everything if job is finished
+video1.close()
+video2.close()
+cv2.destroyAllWindows()

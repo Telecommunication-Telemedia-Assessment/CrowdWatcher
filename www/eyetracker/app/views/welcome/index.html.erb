@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Welcome!</h1>
+  </div>
+</div>
+
+<div class="row">
+  <img src="campaign/images/javascript-disabled.jpg" id="JavascriptDisabledImg" style="margin-left: auto; margin-right: auto; display: block;" />
+</div>
+
+<div class="row">
+  <div class="panel">
+  <h3>General information</h3>
+
+   <p class="lead">
+     You only can participate if your laptop has a webcam and you allow recording your face during the test.
+     Moreover, you need to use the <strong>Google Chrome</strong> browser.
+   </p>
+
+
+   <p class="lead">Important note: The video will only be used for scientific purposes and will not be disseminated in any case.</p>
+
+   <p class="lead">
+     At the end of the test, you will be provided with a unique token, as proof of the work's completion. You can copy and paste this token into the microworkers.com site.
+   </p>
+
+   </div>
+</div>
+
+<div class="row">
+  <%= link_to 'Start', {:controller=>'instructions', :action=>'index'}, :class=>'button right', :style => 'visibility:hidden;', :id => 'StartTestButton' %>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+function show(){
+    var imgJavascript = document.getElementById("JavascriptDisabledImg");
+    imgJavascript.style.visibility = "hidden";
+    imgJavascript.style.height = 0;
+
+    if(checkBrowser()) {
+        var instructtions = document.getElementById("StartTestButton");
+        instructtions.style.visibility = "visible";
+    }
+
+    //if (checkResolution()) {
+    if(true) {
+        var instructtions = document.getElementById("StartTestButton");
+        instructtions.style.visibility = "visible";
+    } else {
+        alert('Please increase the window size! Minimum size for browser window is 705x1036.');
+    }
+}
+
+function checkResolution() {
+  var y = window.innerHeight;
+  var x = window.innerWidth;
+
+  if (y < 705) {
+    return false;         
+  }
+  if (x < 1036) {
+    return false;
+  }
+  return true;
+}
+
+function checkResolution() {
+  var y = window.innerHeight;
+  var x = window.innerWidth;
+
+  if (y < 705) {
+    return false;         
+  }
+  if (x < 1036) {
+    return false;
+  }
+  return true;
+}
+
+function checkBrowser() {
+  var ua = navigator.userAgent.toLowerCase();
+  var check = function(r) {
+     return r.test(ua);
+  };
+  var DOC = document;
+  var isStrict = DOC.compatMode == "CSS1Compat";
+  var isOpera = check(/opera/);
+  var isChrome = check(/chrome/);
+  var isWebKit = check(/webkit/);
+  var isSafari = !isChrome && check(/safari/);
+  var isSafari2 = isSafari && check(/applewebkit\/4/); // unique to
+  // Safari 2
+  var isSafari3 = isSafari && check(/version\/3/);
+  var isSafari4 = isSafari && check(/version\/4/);
+  var isIE = !isOpera && check(/msie/);
+  var isIE7 = isIE && check(/msie 7/);
+  var isIE8 = isIE && check(/msie 8/);
+  var isIE6 = isIE && !isIE7 && !isIE8;
+  var isGecko = !isWebKit && check(/gecko/);
+  var isGecko2 = isGecko && check(/rv:1\.8/);
+  var isGecko3 = isGecko && check(/rv:1\.9/);
+  var isFirefox = isGecko && check(/[fF]irefox/);
+  var isBorderBox = isIE && !isStrict;
+  var isWindows = check(/windows|win32/);
+  var isMac = check(/macintosh|mac os x/);
+  var isAir = check(/adobeair/);
+  var isLinux = check(/linux/);
+  var isSecure = /^https/i.test(window.location.protocol);
+  var isIE7InIE8 = isIE7 && DOC.documentMode == 7;
+
+  if(!isChrome) {
+      alert('Please use Chrome browser! Other webbrowser are not supported. If you do not have one of these browser you will not be able to pass the test, and wont be paid.');
+      return false;
+  }
+
+  return true;
+} 
+
+window.onload = show;
+
+
+</script>
+
+
+
+
