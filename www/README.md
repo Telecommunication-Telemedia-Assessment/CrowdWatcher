@@ -5,8 +5,8 @@ The Rails application `eyetracker` correspond to the eyetracker framework which 
 The Rails application `demo_study` is an example of study which will be run inside the eyetracker platform. This is a sub-website which will be contained inside the `eyetracker` application. (The main application is `eyetracker`).
  
 The following figure illustrates the interaction between the two web applications.
-![alt tag](https://github.com/Telecommunication-Telemedia-Assessment/CrowdWatcher/branch/www/framework.png)
+
+![alt tag](https://github.com/Telecommunication-Telemedia-Assessment/CrowdWatcher/www/framework.png)
 
 The application `eyetracker` takes care of all the different steps EXCEPT the main task. The main task being carried on by the application `demo_study`. 
 
- 
