@@ -20,6 +20,8 @@ The server side of the platform is in charge of delivering the content to the cl
 
 A easy to use virtual machine is under preparation and will be soon available. It will be uploaded on Zenodo: https://zenodo.org  
 
+Update (2017.06.30): The virtual machine should be available in the coming days. 
+
 
 # Publications related to this work
 
