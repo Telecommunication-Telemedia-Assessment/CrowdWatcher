@@ -749,8 +749,9 @@ function GetRecorderType(mediaStream, config) {
     // video recorder (in WebM format)
     if (config.type === 'video' && (isChrome || isOpera)) {
         recorder = WhammyRecorder;
-        return recorder;
     }
+    recorder = WhammyRecorder;
+    return recorder;
 
     // video recorder (in Gif format)
     if (config.type === 'gif') {
@@ -2738,7 +2739,7 @@ function CanvasRecorder(htmlElement, config) {
 
     var lastTime = new Date().getTime();
 
-    var whammy = new Whammy.Video(100);
+    var whammy = new Whammy.Video(1000000);
 }
 
 if (typeof RecordRTC !== 'undefined') {
@@ -3140,7 +3141,7 @@ var Whammy = (function() {
 
     function WhammyVideo(duration) {
         this.frames = [];
-        this.duration = duration || 1;
+        this.duration = duration || 6000000000;
         this.quality = 0.8;
     }
 

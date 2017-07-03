@@ -6,7 +6,7 @@
  */
 
 window.options = {
-	applicationUrl: "https://imtdienste.rz.tu-ilmenau.de/study",
+	applicationUrl: "https://192.168.56.101/study",
 	type: 'video',
 	video: {
 		width: 640,
@@ -106,6 +106,8 @@ class Platform {
 		this.xmlLog.closeTag("EyeTrackingRecords");
 		var clickXML = this.xmlLog.getContent();
 
+console.log(clickXML);
+
 		// for streaming video
 		if (this.streamController.isStreaming) {
 			this.streamController.stopStreaming();
@@ -120,7 +122,7 @@ class Platform {
 		this.startController(controller, contentContainer);
 		controller.once("end", function() {
 			trace("done!");
-			location.href = location.protocol + "//imtdienste.rz.tu-ilmenau.de/campaign/post_session_assessments/new";
+			location.href = location.protocol + "//192.168.56.101/platform/post_session_assessments/new";
 		});
 	}
 
@@ -138,7 +140,7 @@ class Platform {
     }
 
     this.xmlLog.openTag("click", {time: Date.now(), x: clickX, y: clickY});
-    // console.log(this.xmlLog._content);
+     // console.log(this.xmlLog._content);
 
 		// Creates colored squares in the video recording, see RecordRTC
 		__DRAW_RED_BOX_ = true;
