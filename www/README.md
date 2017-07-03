@@ -8,7 +8,7 @@ The following figure illustrates the interaction between the two web application
 
 ![alt tag](./framework.png)
 
-The application `eyetracker` takes care of all the different steps EXCEPT the main task. The main task being carried on by the application `demo_study`. 
+The application `eyetracker` takes care of all the different steps EXCEPT the main task. The main task being carried on by the application `Preference`. 
 
 The appliccation `Preference` is an exemplary experiment which runs a pairwise experiment to compare images. 
 
