@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Subjective study</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel">
+<p>You have now moved to the subjective study application. This application is running inside the eyetracking platform. This Rails application can be found at "/home/archie/Study/Preference". This allows to develop the application used for the subjective study independently of the eye tracking plaform, and only connect the eye tracker at the end of your development. The connection between the two platform can be done by adjusting the file "public/js/Platform.js" in the eye tracker platform "/home/archie/CrowdWatcher/www/eyetracker" (or altervatively updating the apache configuration file). By default, the eye tracker will run the application at "https://[server ip]/study" </p>
+<br/>
+
+<p>If you look at the code of the test website, you can also notice some messages which are sent to the platform in order to track down what the user is doing in the campaign site. For example, this page do "var dataStruct = {type:"newPage", page:"Welcome"}; window.parent.postMessage(dataStruct,'*');" to inform the eye tracking platform that we are currently at the welcome page. Other types of events includes sending information on clicks "var dataStruct = {type:"click", pageX:e.pageX, pageY:e.pageY};" or informing the main platform that the task is completed "var dataStruct = {type:"quit"};". This examplary test will illustrate the usage. </p>
+
+
+<p>In the following we will propose an examplary experiment which peform a pair-wise comparison test. The user will see different pair of images and will have to click on his favorite one.
+</p>
+  </div>
+</div>
+
+<div class="row">
+  <%= link_to 'Start', {:controller=>'pair_comparison_votes', :action=>'new'}, :class=>'button right', :id => 'StartTestButton' %>
+</div>
+
+<script type="text/javascript">
+
+function recordClick(e) {
+     console.log(e.pageX);
+
+     var dataStruct = {type:"click", pageX:e.pageX, pageY:e.pageY};
+
+     window.parent.postMessage(dataStruct,'*'); //the '*' has to do with cross-domain messaging. leave it like it is for same-domain messaging.
+
+}
+
+function onPageLoad() {
+	document.getElementsByTagName("html")[0].onclick = recordClick;
+
+        window.addEventListener('scroll',function(e) {
+           var dataStruct = {type:"scroll", pageXOffset:window.pageXOffset, pageYOffset:window.pageYOffset};
+
+           window.parent.postMessage(dataStruct,'*');
+        });
+
+        var dataStruct = {type:"newPage", page:"Welcome"};
+        window.parent.postMessage(dataStruct,'*');
+}
+
+window.onload = onPageLoad;
+
+
+</script>
+
+

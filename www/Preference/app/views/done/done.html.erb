@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1>The study is finished</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel">
+<p>At this point the task is finished. We decide then to close the application and redirect the user to the main application: the eye tracker framework. It is the framework which will handle the uploading process of the logs and the final video of participant's face to the server. Finally, the platform also handle releasing the token to the user to prove that he completed the job.  
+</p>
+
+<br />
+
+<p> 
+Once you arrives at the server page, you will be able to see a preview of the video which will be uploaded to the server. (It may take a little while to appear). Then, once the video is uploaded it can be found on the server at the following URL: "/home/archie/CrowdWatcher/www/eyetracker/public/uploads". These videos can then be processed using the analysis framework.
+</p>
+
+
+  </div>
+</div>
+
+<div class="row">
+  <%= button_tag 'Done', :class=>'button right', :onclick => 'closeTest()' %>
+</div>
+
+
+<script type="text/javascript">
+
+function closeTest() {
+   var dataStruct = {type:"quit"};
+   window.parent.postMessage(dataStruct,'*');
+}
+
+function recordClick(e) {
+     console.log(e.pageX);
+
+     var dataStruct = {type:"click", pageX:e.pageX, pageY:e.pageY};
+
+     window.parent.postMessage(dataStruct,'*'); //the '*' has to do with cross-domain messaging. leave it like it is for same-domain messaging.
+
+}
+
+function onPageLoad() {
+        document.getElementsByTagName("html")[0].onclick = recordClick;
+
+        window.addEventListener('scroll',function(e) {
+           var dataStruct = {type:"scroll", pageXOffset:window.pageXOffset, pageYOffset:window.pageYOffset};
+
+           window.parent.postMessage(dataStruct,'*');
+        });
+
+        var dataStruct = {type:"newPage", page:"Done"};
+        window.parent.postMessage(dataStruct,'*');
+}
+
+window.onload = onPageLoad;
+
+
+</script>
+
+

@@ -1,0 +1,123 @@
+<%= form_for @pair_comparison_vote, :html => {:id => 'pair_comparison_vote_form' } do |f| %>
+  <% if @pair_comparison_vote.errors.any? %>
+    <div id="error_explanation">
+     <h2><%= pluralize(@pair_comparison_vote.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @pair_comparison_vote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= f.hidden_field :vote %>
+
+<div class="row">
+  <div class="small-12 small-centered columns">
+
+    <div class="row" >
+      <div class="large-6 columns" >
+        <img id="image_0" src="../images/<%= @content_A.content_path %>" style="max-height: 475px;" onclick="imageSelected(0);" />
+      </div>
+      <div class="large-6 columns" >
+        <img id="image_1" src="../images/<%= @content_B.content_path %>" style="max-height: 475px;" onclick="imageSelected(1);"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+  <div class="small-8 small-centered columns">
+    <%= f.submit  "Next", class: "button right", :id => "next"  %>
+  </div>
+
+  <script type="text/javascript">
+  
+  function checkImageSize() {
+    var img1 = document.getElementById("image_0");
+    var img2 = document.getElementById("image_1");
+
+    if(img2.width*(img1.height*img1.width)/(img2.height*img2.width) < 480) {
+      img2.setAttribute("style","height:" + img2.height*(img1.height*img1.width)/(img2.height*img2.width) +"px"); 
+    } else {
+      img1.setAttribute("style","height:" + img1.height*(img1.height*img1.width)/(img2.height*img2.width) +"px");
+    }
+  }
+
+
+    document.getElementById("next").disabled=true;
+    document.onkeydown = checkKey;
+
+    function imageSelected(value) {
+      document.getElementById("next").disabled = false;
+      document.getElementById("pair_comparison_vote_vote").value = value;
+
+      document.getElementById("image_" + value).className = "selected";
+      document.getElementById("image_" + (value+1) % 2).className = "";
+     
+    }
+
+    function checkKey(e) {
+      e = e || window.event;
+
+      if (e.keyCode == '38') {
+        // up arrow
+      }
+      else if (e.keyCode == '40') {
+        // down arrow
+      }
+      else if (e.keyCode == '37') {
+        // left arrow
+        imageSelected(0);
+      }
+      else if (e.keyCode == '39') {
+        // right arrow
+        imageSelected(1);
+      } else if (e.keyCode == '13') {
+        // enter 
+        if(!document.getElementById("next").disabled) {
+          $('#pair_comparison_vote_form').submit();
+        }
+      }
+    }
+  </script>
+
+<script type="text/javascript">
+function recordClick(e) {
+     console.log(e.pageX);
+
+     var dataStruct = {type:"click", pageX:e.pageX, pageY:e.pageY};
+
+     window.parent.postMessage(dataStruct,'*'); //the '*' has to do with cross-domain messaging. leave it like it is for same-domain messaging.
+
+}
+
+function onPageLoad() {
+        document.getElementsByTagName("html")[0].onclick = recordClick;
+        checkImageSize();
+
+        window.addEventListener('scroll',function(e) {
+           var dataStruct = {type:"scroll", pageXOffset:window.pageXOffset, pageYOffset:window.pageYOffset};
+
+           window.parent.postMessage(dataStruct,'*');
+        });
+
+        var dataStruct = {type:"newPage", page:"PairWiseTest"};
+        window.parent.postMessage(dataStruct,'*');
+}
+
+window.onload = onPageLoad;
+
+
+</script>
+
+<div class="row">
+  <div class="small-12 small-centered columns">
+The images on this page belong to the MIT300 dataset images (http://saliency.mit.edu/) 
+  </div>
+</div>
+
+  <% end %>
+
