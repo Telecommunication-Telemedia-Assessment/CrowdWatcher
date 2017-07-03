@@ -142,15 +142,15 @@ window.ajax = function(url, options) {
 window.__DRAW_RED_BOX_ = false;
 window.__DRAW_RED_BOX_INDEX__ = 0;
 window.__DRAW_INDEX_BOX__ = function(ctx) {
-  if (!__DRAW_RED_BOX_)
+  if (!window.__DRAW_RED_BOX_)
     return;
 
   var colors = ["red", "green", "blue", "yellow", "brown", "HotPink", "Orange", "Purple", "Salmon"];
   var lastFillStyle = ctx.fillStyle;
-  ctx.fillStyle = colors[__DRAW_RED_BOX_INDEX__];
+  ctx.fillStyle = colors[window.__DRAW_RED_BOX_INDEX__];
   ctx.fillRect(0, 0, 16, 16);
   ctx.fillStyle = lastFillStyle;
 
-  if (++__DRAW_RED_BOX_INDEX__ > 8)
-    __DRAW_RED_BOX__ = false;
+  if (++window.__DRAW_RED_BOX_INDEX__ > 8)
+    window.__DRAW_RED_BOX__ = false;
 }

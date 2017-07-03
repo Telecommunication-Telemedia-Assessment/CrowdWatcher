@@ -373,6 +373,7 @@ class UploadController extends Controller {
 
   postClicks(content, filename, callback) {
 		ajax("save_clicks.php?filename=" + filename, {
+			data: content,
 			type: "POST",
 			mimeType: "text/plain; charset=x-user-defined-binary",
 			success: callback
