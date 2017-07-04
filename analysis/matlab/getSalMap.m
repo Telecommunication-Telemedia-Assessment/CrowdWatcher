@@ -1,5 +1,4 @@
 function SalMap2Fix = getSalMap(filename)
-% filename = 'fix.csv';
 
 distance = .55;
 dpi = 72;
