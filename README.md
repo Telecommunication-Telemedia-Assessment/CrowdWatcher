@@ -29,9 +29,12 @@ Using this virtual machine, you can easily run the platform.
 
 ![alt tag](./NewVM.png)
 
-	- In the preference of VirtualBox (NOT in the preference of your virtual machine!!!), you will have to go to network and make a new Host only network (if you don't already have one). Click on the button "+" of the right side you don't have an interface like "vboxnet0".
+
+- In the preference of VirtualBox (NOT in the preference of your virtual machine!!!), you will have to go to network and make a new Host only network (if you don't already have one). Click on the button "+" of the right side you don't have an interface like "vboxnet0".
+
 
 ![alt tag](./NetworkC.png)
+
 
 	- In the preference of the Arch virtual machine, check that in the network tab, the adapter 1 is attached to NAT (this allows the virtual machine to have Internet access).
 
