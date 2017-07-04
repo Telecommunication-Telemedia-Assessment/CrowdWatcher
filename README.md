@@ -58,6 +58,30 @@ Using this virtual machine, you can easily run the platform.
 
 
 
+# Build the analysis tool
+
+
+The provided virtual machine does not contains a build of the analysis tools. It was chosen to do so, as the analysis tool requires OpenCV which would have needed to include a X server which would have doubled the size of the virtual machine. Moreover, the virtual machine was meant as a web server and therefore does not need graphical interface. 
+
+However, to easily use the fixation predictions and saliency map generation, a compiled version of the tools is provided for Windows. These can be found in the release section of github. 
+
+
+If you are using a computer running Linux or Mac OS X, the tools can be easily built from the source. 
+
+The dependencies are `boost` and `OpenCV`. These can be installed using `apt-get`, `pacman`, ... on Linux or `homebrew` on Mac OS X. 
+
+Once the dependencies are installed, the first step is to compile the CLM-framework. This can be achieved by going into the folder `analysis/clmframework`, run `cmake CMakeLists.txt` and `make`.
+
+Then, to compile the `Fit` tool, it is only necessary to go to the folder `analysis/Fit` and run `make`.
+
+
+All tools are now compiled and can be used to analyze the videos.
+
+
+
+
+
+
 # Run a test
 
 
@@ -69,7 +93,7 @@ Using this virtual machine, you can easily run the platform.
 
    - Let `user1_video.webm` and `user1_click.xml` be the two files contained in the uploads folder. 
 
-   - Run the tool `clmframework/bin/FeatureExtraction user1_video.webm -ofeatures_2d -f face_features.csv` to obtain the facial features. 
+   - Run the tool `clmframework/bin/FeatureExtraction -ofeatures_2d .\face_features.csv -f .\user1_video.webm` to obtain the facial features. 
 
    - Run the fit tool `Fit/fit -f face_features.csv -c user1_click.xml -o user1_fixations.csv` to obtain the fixations predictions and confidence intervals.
 
@@ -86,6 +110,10 @@ Using this virtual machine, you can easily run the platform.
    - Pierre Lebreton, Isabelle Hupont, Toni Mäki, Evangelos Skodras and Matthias Hirth, (2015), "Eye tracker in the wild, studying the delta between what is said and done in a crowdsourcing experiment", Proceedings of the 2015 Inter- national ACM Workshop on Crowdsourcing for Multimedia, Brisbane, Australia
 
 
+The CLM Framework used in order to perform features extractions in videos:
 
+   - Tadas Baltrusaitis, Peter Robinson, and Louis-Philippe Morency. Constrained Local Neural Fields for robust facial landmark detection in the wild. in IEEE Int. Conference on Computer Vision Workshops, 300 Faces in-the-Wild Challenge, 2013
+
+   - https://github.com/TadasBaltrusaitis/CLM-framework
 
 
