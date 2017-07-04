@@ -36,21 +36,23 @@ Using this virtual machine, you can easily run the platform.
 ![alt tag](./NetworkC.png)
 
 
-	- In the preference of the Arch virtual machine, check that in the network tab, the adapter 1 is attached to NAT (this allows the virtual machine to have Internet access).
+- In the preference of the Arch virtual machine, check that in the network tab, the adapter 1 is attached to NAT (this allows the virtual machine to have Internet access).
+
 
 ![alt tag](./Network1.png)
 
-	- In the preference of the Arch virtual machine, check that in the network tab, the adapter 2 is attached to "Host-only adapter", and select the name such as it match to an existing "Host only network". (This allows you to connect to the virtual machine from your host computer via the IP: 192.168.56.101). 
+- In the preference of the Arch virtual machine, check that in the network tab, the adapter 2 is attached to "Host-only adapter", and select the name such as it match to an existing "Host only network". (This allows you to connect to the virtual machine from your host computer via the IP: 192.168.56.101). 
 
 
 ![alt tag](./Network2.png)
 
-	- You may start the virtual machine. Once the operating system is loaded, it requests a user. The default user is "archie" and the password is "arch". It is however, not necessary to log in.  
+- You may start the virtual machine. Once the operating system is loaded, it requests a user. The default user is "archie" and the password is "arch". It is however, not necessary to log in.  
 
 ![alt tag](./VMStarted.png)
 
 
-	- You may open Google Chrome, and connect to the virtual machine at the address: http://192.168.56.101/ where you will find the default page. The eye tracking platform can be found at https://192.168.56.101/platform
+- You may open Google Chrome, and connect to the virtual machine at the address: http://192.168.56.101/ where you will find the default page. The eye tracking platform can be found at https://192.168.56.101/platform
+
 
 ![alt tag](./Invite.png)
 
