@@ -18,9 +18,39 @@ The server side of the platform is in charge of delivering the content to the cl
 
 # Virtual machine
 
-A easy to use virtual machine is under preparation and will be soon available. It will be uploaded on Zenodo: https://zenodo.org  
+A easy to use virtual machine can be founded on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.822385.svg)](https://doi.org/10.5281/zenodo.822385)
 
-Update (2017.06.30): The virtual machine should be available in the coming days. 
+
+Using this virtual machine, you can easily run the platform. 
+
+   - First, download the virtual machine and uncompress it to obtain the Arch.vdi file
+
+   - Then, you can use VirtualBox to create a new virtual machine which use an existing virtual hard disk file. Then, create the virutal machine. 
+
+![alt tag](./NewVM.png)
+
+	- In the preference of VirtualBox (NOT in the preference of your virtual machine!!!), you will have to go to network and make a new Host only network (if you don't already have one). Click on the button "+" of the right side you don't have an interface like "vboxnet0".
+
+![alt tag](./NetworkC.png)
+
+	- In the preference of the Arch virtual machine, check that in the network tab, the adapter 1 is attached to NAT (this allows the virtual machine to have Internet access).
+
+![alt tag](./Network1.png)
+
+	- In the preference of the Arch virtual machine, check that in the network tab, the adapter 2 is attached to "Host-only adapter", and select the name such as it match to an existing "Host only network". (This allows you to connect to the virtual machine from your host computer via the IP: 192.168.56.101). 
+
+
+![alt tag](./Network2.png)
+
+	- You may start the virtual machine. Once the operating system is loaded, it request a user. The default user is "archie" and the password is "arch". It is however, not necessary to log in.  
+
+![alt tag](./VMStarted.png)
+
+
+	- You may open Google Chrome, and connect to the virtual machine at the address: http://192.168.56.101/ where you will find the default page. The eye tracking platform can be found at http://192.168.56.101/platform
+
+![alt tag](./Invite.png)
+
 
 
 # Publications related to this work
