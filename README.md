@@ -42,14 +42,33 @@ Using this virtual machine, you can easily run the platform.
 
 ![alt tag](./Network2.png)
 
-	- You may start the virtual machine. Once the operating system is loaded, it request a user. The default user is "archie" and the password is "arch". It is however, not necessary to log in.  
+	- You may start the virtual machine. Once the operating system is loaded, it requests a user. The default user is "archie" and the password is "arch". It is however, not necessary to log in.  
 
 ![alt tag](./VMStarted.png)
 
 
-	- You may open Google Chrome, and connect to the virtual machine at the address: http://192.168.56.101/ where you will find the default page. The eye tracking platform can be found at http://192.168.56.101/platform
+	- You may open Google Chrome, and connect to the virtual machine at the address: http://192.168.56.101/ where you will find the default page. The eye tracking platform can be found at https://192.168.56.101/platform
 
 ![alt tag](./Invite.png)
+
+
+
+# Run a test
+
+
+   - Setup the platform or the virtual machine
+
+   - Connect to https://192.168.56.101/platform and follow the steps. (With the virtual machine, you will have a security warning due to the use of a self-signed certificate. You need to buy a valid certificate for running crowdsourcing experiments. It only cost few euros/dollars)
+
+   - Once the test is completed you may find the videos with the participants's face and XML logs about their actions in "www/eyetracker/public/uploads/".
+
+   - Let `user1_video.webm` and `user1_click.xml` be the two files contained in the uploads folder. 
+
+   - Run the tool `clmframework/bin/FeatureExtraction user1_video.webm -ofeatures_2d -f face_features.csv` to obtain the facial features. 
+
+   - Run the fit tool `Fit/fit -f face_features.csv -c user1_click.xml -o user1_fixations.csv` to obtain the fixations predictions and confidence intervals.
+
+   - Finally, run the MATLAB script `MATLAB/getSalMap('user1_fixations.csv')` to obtain the saliency map. 
 
 
 
