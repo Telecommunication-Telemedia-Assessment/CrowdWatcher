@@ -18,7 +18,7 @@ The server side of the platform is in charge of delivering the content to the cl
 
 # Virtual machine
 
-A easy to use virtual machine can be founded on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.822385.svg)](https://doi.org/10.5281/zenodo.822385)
+A easy to use virtual machine can be found on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.822385.svg)](https://doi.org/10.5281/zenodo.822385)
 
 
 Using this virtual machine, you can easily run the platform. 
@@ -113,6 +113,8 @@ All tools are now compiled and can be used to analyze the videos.
 The CLM Framework used in order to perform features extractions in videos:
 
    - Tadas Baltrusaitis, Peter Robinson, and Louis-Philippe Morency. Constrained Local Neural Fields for robust facial landmark detection in the wild. in IEEE Int. Conference on Computer Vision Workshops, 300 Faces in-the-Wild Challenge, 2013
+
+   - Erroll Wood, Tadas Baltrusaitis, Xucong Zhang, Yusuke Sugano, Peter Robinson, and Andreas Bulling, Rendering of eyes for eye-shape registration and gaze estimation, in IEEE International Conference on Computer Vision, 2015
 
    - https://github.com/TadasBaltrusaitis/CLM-framework
 
