@@ -16,6 +16,32 @@ The server side of the platform is in charge of delivering the content to the cl
    - The folder `www` contains the web applications which have to be installed on the server to distribute the crowdsourcing experiment. 
 
 
+
+
+# Citation
+
+The journal paper related to this work has been accepted for publication. In case you use this work, please cite:
+
+```
+@article{crowdwatcher,
+  title={CrowdWatcher: an open-source platform to catch the eye of the crowd},
+  author={Lebreton, Pierre and Hupont, Isabelle and Hirth, Matthias and M{\"a}ki, Toni and Skodras, Evangelos and Schubert, Anton and Raake, Alexander},
+  journal={Quality and User Experience},
+  volume={4},
+  number={1},
+  pages={},
+  year={2019},
+  doi={10.1007/s41233-019-0024-6},
+  issn={2366-0147},
+  url={https://doi.org/10.1007/s41233-019-0024-6}
+}
+```
+
+
+
+
+
+
 # Virtual machine
 
 A easy to use virtual machine can be found on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.822385.svg)](https://doi.org/10.5281/zenodo.822385)
